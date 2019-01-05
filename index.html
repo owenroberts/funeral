@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta charset="utf-8">
+	<title>funeral</title>
+	<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body>
+	<div id="blocker">
+		<div id="title">
+			<p>Funeral by <a href="http://owen.cool/">Owen Ribbit</a></p>
+		</div>
+		<div id="start-button">
+			Loading
+		</div>
+		<p id="instructions" style="font-size:1.5em">Mobile device required to play.</p>
+		<div id="hotdogs-link">
+			<p><a href="http://hotdogs.cool">View Part 1: Hot Dogs</a></p>
+			<p><a href="http://trampoline.cool">View Part 2: Trampoline</a></p>
+		</div>
+		<canvas id="phone"></canvas>
+	</div>
+    <div id="container">
+    	<canvas id="lines"></canvas>
+	</div>
+
+	<script src="js/three.min.js"></script>
+	<script src="js/DeviceOrientationControls.js"></script>
+	<script src="js/OutlineEffect.js"></script>
+	<script src="js/GLTFLoader.js"></script>
+
+	<script src="lines/lib/cool/cool.js"></script>
+	<script src="lines/play/play.js"></script>
+	<script src="funeral.js"></script>
+</body>
+</html>
