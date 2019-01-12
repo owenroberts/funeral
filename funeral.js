@@ -28,7 +28,7 @@ const dialogs = [
 		sides: [3], 
 		delay: 2000, end: 2000 },
 	{ track: "clips/4.mp3",	 anim: "drawings/web.json", 
-		sides: [1, 5], 
+		sides: [0, 1, 4, 5], 
 		delay: 2000, end: 2000 },
 	{ track: "clips/5.mp3",	 anim: "drawings/broc.json", 
 		sides: [0, 1, 2, 3, 4, 5], 
@@ -68,7 +68,7 @@ const dialogs = [
 		delay: 2000, end: 2000 },
 	{ track: "clips/16.mp3",	 anim: "drawings/orbit.json", 
 		sides: [0, 1, 2, 4, 5], 
-		delay: 2000, end: 2000 },
+		delay: 2000, end: 4000 },
 	{ track: "clips/17-1.mp3",	 anim: "drawings/pigs.json", 
 		sides: [0, 1, 2, 3, 4, 5], 
 		delay: 2000, end: 2000 },
@@ -80,7 +80,7 @@ const dialogs = [
 		delay: 2000, end: 2000 },
 	{ track: "clips/19.mp3",	 anim: "drawings/ride.json", 
 		sides: [4], 
-		delay: 2000, end: 4000 }
+		delay: 2000, end: 6000 }
 ];
 const startDelay = 8000;
 const endDelay = 4000;
