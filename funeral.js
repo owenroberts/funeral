@@ -360,7 +360,7 @@ function end() {
 		char.zSpeed = 0;
 		linesPlayer.loadAnimation(lastDrawing, () => {
 			// turn on dialog.sides, off others
-			planes.map((p, i) => [0,1,4,5].indexOf(i) != -1 ? p.visible = true : p.visible = false);
+			planes.map((p, i) => [0, 1, 2, 3, 4, 5].indexOf(i) != -1 ? p.visible = true : p.visible = false);
 			linesPlayer.ctx.lineWidth = 2;
 		});
 	}, 2000);
