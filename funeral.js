@@ -13,71 +13,79 @@ let deathIndex;
 
 /* sides  0 front  1 back  2 top  3 bottom  4 right  5 left*/
 const firstDrawing = 'drawings/intro.json';
-const lastDrawing = 'drawings/end.json';
+const lastDrawing = 'drawings/hotdogs_in_space.json';
 const dialogs = [
 	{ track: "clips/0.mp3",	 anim: "drawings/bus.json", 
 		sides: [0], 
-		delay: 8000, end: 2000 },
+		delay: 2000, end: 2000 },
 	{ track: "clips/1.mp3",	 anim: "drawings/line.json", 
 		sides: [0, 1, 4, 5], 
-		delay: 4000, end: 4000 },
+		delay: 4000, end: 2000 },
 	{ track: "clips/2.mp3",	 anim: "drawings/talking.json", 
 		sides: [0, 4], 
-		delay: 4000, end: 4000 },
+		delay: 2000, end: 2000 },
 	{ track: "clips/3.mp3",	 anim: "drawings/option.json", 
 		sides: [3], 
-		delay: 4000, end: 4000 },
+		delay: 2000, end: 2000 },
 	{ track: "clips/4.mp3",	 anim: "drawings/web.json", 
 		sides: [1, 5], 
-		delay: 4000, end: 4000 },
+		delay: 2000, end: 2000 },
 	{ track: "clips/5.mp3",	 anim: "drawings/broc.json", 
 		sides: [0, 1, 2, 3, 4, 5], 
-		delay: 4000, end: 4000 },
+		delay: 2000, end: 4000 },
 	{ track: "clips/6.mp3",	 anim: "drawings/hell.json", 
 		sides: [0, 1, 4, 5], 
-		delay: 4000, end: 4000 },
-	{ track: "clips/7.mp3",	 anim: "drawings/glasses.json", 
+		delay: 2000, end: 2000 },
+	{ track: "clips/7-1.mp3",	 anim: "drawings/skel.json", 
+		sides: [0, 1, 4, 5], 
+		delay: 4000, end: 2000 },
+	{ track: "clips/7-2.mp3",	 anim: "drawings/glasses.json", 
 		sides: [4, 5], 
-		delay: 4000, end: 4000 },
-	{ track: "clips/8.mp3",	 anim: "drawings/mother.json", 
+		delay: 4000, end: 2000 },
+	{ track: "clips/7-3.mp3",	 anim: "drawings/mother.json", 
 		sides: [0, 1], 
-		delay: 4000, end: 4000 },
+		delay: 4000, end: 2000 },
 	{ track: "clips/9.mp3",	 anim: "drawings/lobster.json", 
 		sides: [3], 
-		delay: 4000, end: 4000 },
+		delay: 2000, end: 2000 },
 	{ track: "clips/10.mp3",	 anim: "drawings/quiet.json", 
 		sides: [3], 
-		delay: 4000, end: 4000 },
+		delay: 2000, end: 2000 },
 	{ track: "clips/11.mp3",	 anim: "drawings/kill.json", 
-		sides: [5], 
-		delay: 4000, end: 4000 },
+		sides: [0, 1, 4, 5], 
+		delay: 2000, end: 2000 },
 	{ track: "clips/12.mp3",	 anim: "drawings/molecule.json", 
 		sides: [0, 1, 2, 3, 4, 5], 
-		delay: 4000, end: 4000 },
+		delay: 4000, end: 2000 },
 	{ track: "clips/13.mp3",	 anim: "drawings/buttons.json", 
 		sides: [0], 
-		delay: 4000, end: 4000 },
+		delay: 2000, end: 4000 },
 	{ track: "clips/14.mp3",	 anim: "drawings/casket.json", 
 		sides: [1], 
-		delay: 4000, end: 4000 },
+		delay: 2000, end: 4000 },
 	{ track: "clips/15.mp3",	 anim: "drawings/face.json", 
 		sides: [1], 
-		delay: 4000, end: 4000 },
+		delay: 2000, end: 2000 },
 	{ track: "clips/16.mp3",	 anim: "drawings/orbit.json", 
 		sides: [0, 1, 2, 4, 5], 
-		delay: 4000, end: 4000 },
-	{ track: "clips/17.mp3",	 anim: "drawings/pigs.json", 
+		delay: 2000, end: 2000 },
+	{ track: "clips/17-1.mp3",	 anim: "drawings/pigs.json", 
 		sides: [0, 1, 2, 3, 4, 5], 
-		delay: 4000, end: 4000 },
+		delay: 2000, end: 2000 },
+	{ track: "clips/17-2.mp3",	 anim: "drawings/ketchup.json", 
+		sides: [3], 
+		delay: 2000, end: 2000 },
 	{ track: "clips/18.mp3",	 anim: "drawings/mouth.json", 
 		sides: [0], 
-		delay: 4000, end: 4000 },
+		delay: 2000, end: 2000 },
 	{ track: "clips/19.mp3",	 anim: "drawings/ride.json", 
 		sides: [4], 
-		delay: 4000, end: 4000 }
+		delay: 2000, end: 4000 }
 ];
+const startDelay = 8000;
+const endDelay = 4000;
 
-const durations = { "BDuckRoll": 44, "BRight": 30, "BTalk": 100, "BTalk3": 60, "BIdle3": 183, "BWalk": 117, "BJump": 90, "BIdle4": 53, "BTalk4": 60, "BTalk2": 60, "BNewWalkLook": 300, "BLeft": 30, "BIdle": 300, "BTalk5": 60, "BIdle2": 113, "BDeath": 157, "BIdle5": 156 };
+const durations = { "BDuckRoll": 44, "BRight": 30, "BTalk": 100, "BTalk3": 60, "BIdle3": 183, "BWalk": 117, "BJump": 90, "BIdle4": 53, "BTalk4": 60, "BTalk2": 60, "BNewWalkLook": 300, "BLeft": 30, "BIdle": 300, "BTalk5": 60, "BIdle2": 113, "BDeath": 300, "BIdle5": 156 };
 
 const types = {
 	idle: ['BIdle', 'BIdle2', 'BIdle3', 'BIdle4', 'BIdle5'],
@@ -105,7 +113,8 @@ let listener, voiceSound, voiceSource, audioLoader;
 
 let charAxes;
 let char;
-const charSpeed = { min: 0.3, max: 0.3 }
+const charSpeed = { min: 0.075, max: 0.2 };
+const cameraSpeed = 0.00015;
 
 // better than mobile check, includes ipad
 function onMotion( ev ) {
@@ -142,6 +151,7 @@ function init() {
 	camera.position.y = 0;
 	cameraOffset = camera.position.clone();
 
+
 	/* outside lines */
 	lines.width =  1024;
 	lines.height = 1024;
@@ -166,11 +176,11 @@ function init() {
 		planeMesh.position.set( side[0] * sz, side[1] * sz, side[2] * sz );
 		planeMesh.rotation.set( side[3], side[4], side[5] );
 		scene.add( planeMesh );
-		planes.push(planeMesh);
+		planes.push( planeMesh );
 	}
 
 	listener = new THREE.AudioListener();
-	camera.add(listener);
+	camera.add( listener );
 	audioLoader = new THREE.AudioLoader();
 	voiceSound = new THREE.PositionalAudio( listener );
 	bgLoader = new THREE.AudioLoader();
@@ -182,7 +192,7 @@ function init() {
 	const loader = new THREE.GLTFLoader();
 	loader.load("models/char_arm.gltf", gltf => {
 
-		console.log( gltf );
+		// console.log( gltf );
 
 		char = gltf.scene.children[0];
 		char.animations = gltf.animations;
@@ -204,7 +214,7 @@ function init() {
 		char.scale.set( 0.5, 0.5, 0.5 );
 		char.xSpeed = 0;
 		char.zSpeed = 0;
-		char.add(voiceSound);
+		char.add( voiceSound );
 		mixer.clipAction( char.animations[deathIndex], char ).play();
 		scene.add( char );
 		origin = char.position.clone();
@@ -224,29 +234,33 @@ function start() {
 		currentDialog = 0;
 		dialogs.map((d) => d.start = 0);
 		nextClip = true;
-		bgLoader.load(themeFile, function(buffer) {
+		bgLoader.load(themeFile, buffer => {
 			bgMusic.stop();
 			bgMusic.isPlaying = false;		
 			bgMusic.setBuffer( buffer );
 			bgMusic.setLoop( true );
+			bgMusic.setVolume( 0.25 );
 			if (!bgMusic.isPlaying)
 				bgMusic.play();
 		});
 	} else {
-		animate();
+		
 		bgMusic.loop = true;
 	}
 
-	bgLoader.load(themeFile, function(buffer) {
+	bgLoader.load(themeFile, buffer => {
 		bgMusic.setBuffer( buffer );
 		bgMusic.setLoop( true );
-		if (!bgMusic.isPlaying)
+		if (!bgMusic.isPlaying) {
 			bgMusic.play();
+			animate(); // start actual animation
+			time = performance.now() + startDelay; /* beginning delay */
+		}
 	});
 
 	blocker.style.display = 'none';
 	
-	time = performance.now() + 4000; /* beginning delay */
+	
 
 	linesPlayer.loadAnimation(firstDrawing, () => {
 		planes.map((p, i) => [0, 1, 2, 3, 4, 5].indexOf(i) != -1 ? p.visible = true : p.visible = false);
@@ -263,7 +277,12 @@ function talk( dialog ) {
 	nextClip = false;
 	char.xSpeed = 0;
 	char.zSpeed = 0;
-	camera.ySpeed = Cool.random(-0.001, 0.001);
+
+	if (Math.random() > 0.5) {
+		const lookVec = new THREE.Vector3( camera.position.x, char.position.y, camera.position.z );
+		char.lookAt( lookVec );
+	}
+	
 	linesPlayer.loadAnimation(dialog.anim, () => {
 		// turn on dialog.sides, off others
 		planes.map((p, i) => dialog.sides.indexOf(i) != -1 ? p.visible = true : p.visible = false);
@@ -282,12 +301,14 @@ function talk( dialog ) {
 		voiceSound.isPlaying = false;
 		time = performance.now() + dialog.end;
 		walk();
-		nextClip = true;
+		
 		const nextIndex = dialogs.indexOf(dialog) + 1;
-		if (nextIndex < dialogs.length)
+		if (nextIndex < dialogs.length) {
 			currentDialog = nextIndex;
+			nextClip = true;
+		}
 		else
-			end();
+			setTimeout(end, endDelay);
 	};
 }
 
@@ -321,6 +342,7 @@ function end() {
 		bgMusic.isPlaying = false;
 		bgMusic.setBuffer( buffer );
 		bgMusic.setLoop( false );
+		bgMusic.setVolume( 1 );
 		bgMusic.play();
 	});
 	setTimeout(function() { 
@@ -333,11 +355,10 @@ function end() {
 		instructions.textContent = "The End";
 		document.getElementById("hotdogs-link").style.display = "block";
 		mixer.stopAllAction();
-		const endAnim = [3, 6, 8][Cool.randomInt(0,2)];
-		mixer.clipAction(char.animations[endAnim], char).play();
+		mixer.clipAction(char.animations[deathIndex], char).play();
 		char.xSpeed = 0;
 		char.zSpeed = 0;
-		linesPlayer.loadAnimation(endFile, () => {
+		linesPlayer.loadAnimation(lastDrawing, () => {
 			// turn on dialog.sides, off others
 			planes.map((p, i) => [0,1,4,5].indexOf(i) != -1 ? p.visible = true : p.visible = false);
 			linesPlayer.ctx.lineWidth = 2;
@@ -354,7 +375,7 @@ function animate() {
 			talk( dialog );
 		} else {
 			if (currentDialog == 0)
-				walk(true);
+				walk( true );
 			dialog.start = 1;
 			time += dialog.delay;
 			// walk();
@@ -365,10 +386,14 @@ function animate() {
 	linesTexture.needsUpdate = true;
 	linesPlayer.draw();
 	mixer.update( clock.getDelta() );
+
 	char.position.x += char.xSpeed;
 	char.position.z += char.zSpeed;
 	camera.position.x = char.position.x + cameraOffset.x;
 	camera.position.z = char.position.z + cameraOffset.z;
+
+	camera.position.y += cameraSpeed;
+
 	controls.update();
 	// renderer.render(scene, camera);
 	effect.render( scene, camera );
