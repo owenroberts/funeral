@@ -22,7 +22,7 @@ body {
 	color:white;
 	text-align: center;
 	/*padding: 2em 0;*/
-	font-family: avenir;
+	font-family: verdana;
 }
 #start-button {
 	padding:0.5em;
@@ -42,4 +42,22 @@ body {
 }
 a {
 	color: white;
+}
+
+#phone {
+	margin: 0 auto;
+	display: none;
+}
+
+#desktop {
+	opacity: 0;
+	transition: opacity 2s ease-in;
+}
+
+#desktop a {
+	color: white;
+}
+
+#view {
+	text-decoration: underline;
 }
