@@ -76,7 +76,7 @@ const dialogs = [
 		sides: [4], 
 		delay: 4000, end: 4000 }
 ];
-const x = 8000;
+const startDelay = 8000;
 const endDelay = 4000;
 
 const durations = { "BDuckRoll": 44, "BRight": 30, "BTalk": 100, "BTalk3": 60, "BIdle3": 183, "BWalk": 117, "BJump": 90, "BIdle4": 53, "BTalk4": 60, "BTalk2": 60, "BNewWalkLook": 300, "BLeft": 30, "BIdle": 300, "BTalk5": 60, "BIdle2": 113, "BDeath": 300, "BIdle5": 156 };
@@ -128,6 +128,12 @@ if (document.getElementById('desktop'))
 function init() {
 	clock = new THREE.Clock();
 	scene = new THREE.Scene();
+
+	// change orientation for android
+	if (navigator.userAgent.toLowerCase().indexOf("android") > -1) {
+		scene.rotation.set( 0, -Math.PI/2, 0 );
+		// scene.position.set( 5, 0, 5 ); // match camera offset
+	}
 
 	renderer = new THREE.WebGLRenderer();
 	renderer.setPixelRatio( window.devicePixelRatio );
@@ -205,7 +211,16 @@ function init() {
 			}
 		}
 		
-		char.position.set( 0, -5, -2 );
+		// change orientation for android
+		if (navigator.userAgent.toLowerCase().indexOf("android") > -1) {
+			char.position.set( 4, -5, -4 );
+			// char.rotation.set( 0, -Math.PI/2, 0 );
+			cameraOffset.x -= char.position.x;
+			cameraOffset.z -= char.position.z;
+		} else {
+			char.position.set( 0, -5, -2 );
+		}
+
 		char.scale.set( 0.5, 0.5, 0.5 );
 		char.xSpeed = 0;
 		char.zSpeed = 0;
