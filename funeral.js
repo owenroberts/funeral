@@ -2,7 +2,9 @@ var blocker = document.getElementById( 'blocker' );
 var startButton = document.getElementById( 'start-button' );
 var instructions = document.getElementById( 'instructions' );
 var bgMusic, bgLoader;
+var bgMusicLoaded = false;
 const themeFile = 'clips/theme_80.mp3', endFile = 'clips/end_80.mp3';
+
 
 let restart = false;
 
@@ -76,7 +78,7 @@ const dialogs = [
 		sides: [4], 
 		delay: 4000, end: 4000 }
 ];
-const startDelay = 0;
+const startDelay = 4000;
 const endDelay = 4000;
 
 const durations = { "BDuckRoll": 44, "BRight": 30, "BTalk": 100, "BTalk3": 60, "BIdle3": 183, "BWalk": 117, "BJump": 90, "BIdle4": 53, "BTalk4": 60, "BTalk2": 60, "BNewWalkLook": 300, "BLeft": 30, "BIdle": 300, "BTalk5": 60, "BIdle2": 113, "BDeath": 300, "BIdle5": 156 };
@@ -243,9 +245,31 @@ function init() {
 		scene.add( char );
 		origin = char.position.clone();
 
-		startButton.textContent = "Tap to play";
-		startButton.addEventListener( 'touchend', start, false );
-		startButton.addEventListener( 'click', start, false );
+		console.log(bgMusicLoaded);
+
+		let bgInterval;
+		if (bgMusicLoaded) ready();
+		else {
+			bgInterval = setInterval(function() {
+				if (bgMusicLoaded) {
+					clearInterval(bgInterval);
+					ready();
+				}
+			}, 1000 / 60);
+		}
+
+		function ready() {
+			startButton.textContent = "Tap to play";
+			startButton.addEventListener( 'touchend', start, false );
+			startButton.addEventListener( 'click', start, false );
+		}
+		
+	});
+
+	bgLoader.load(themeFile, buffer => {
+		bgMusicLoaded = true;
+		bgMusic.setBuffer( buffer );
+		bgMusic.setLoop( true );
 	});
 }
 
@@ -271,15 +295,11 @@ function start() {
 		bgMusic.loop = true;
 	}
 
-	bgLoader.load(themeFile, buffer => {
-		bgMusic.setBuffer( buffer );
-		bgMusic.setLoop( true );
-		if (!bgMusic.isPlaying) {
-			bgMusic.play();
-			animate(); // start actual animation
-			time = performance.now() + startDelay; /* beginning delay */
-		}
-	});
+	if (!bgMusic.isPlaying) {
+		bgMusic.play();
+		animate(); // start actual animation
+		time = performance.now() + startDelay; /* beginning delay */
+	}
 
 	blocker.style.display = 'none';
 	
