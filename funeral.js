@@ -76,7 +76,7 @@ const dialogs = [
 		sides: [4], 
 		delay: 4000, end: 4000 }
 ];
-const startDelay = 8000;
+const startDelay = 0;
 const endDelay = 4000;
 
 const durations = { "BDuckRoll": 44, "BRight": 30, "BTalk": 100, "BTalk3": 60, "BIdle3": 183, "BWalk": 117, "BJump": 90, "BIdle4": 53, "BTalk4": 60, "BTalk2": 60, "BNewWalkLook": 300, "BLeft": 30, "BIdle": 300, "BTalk5": 60, "BIdle2": 113, "BDeath": 300, "BIdle5": 156 };
@@ -114,16 +114,30 @@ const cameraSpeed = 0.0001;
 function onMotion( ev ) {
 	window.removeEventListener('devicemotion', onMotion, false);
 	if (ev.acceleration.x != null || ev.accelerationIncludingGravity.x != null) {
-		startButton.style.display = "block";
-		instructions.textContent = "Headphones recommended.  Rotate phone to view.";
-		document.getElementById('phone').style.display = 'block';
-		document.getElementById('desktop').remove();
-		init();
+		if (!touchControls) launch();
 	}
 }
 window.addEventListener('devicemotion', onMotion, false);
 if (document.getElementById('desktop'))
 	document.getElementById('desktop').style.opacity = 1; 
+
+let touchControls = false;
+if (location.search) {
+	if (location.search.split('?')[1].split('=')[0] == 'touch') {
+		touchControls = true;
+		launch();
+	}
+}
+
+
+function launch() {
+	startButton.style.display = "block";
+	instructions.innerHTML = "Headphones recommended." 
+	if (!touchControls) instructions.innerHTML += "<br> Rotate phone to view.";
+	document.getElementById('phone').style.display = 'block';
+	if (document.getElementById('desktop')) document.getElementById('desktop').remove();
+	init();
+}
 
 function init() {
 	clock = new THREE.Clock();
@@ -147,7 +161,7 @@ function init() {
 	});
 
 	camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1100 );
-	controls = new THREE.DeviceOrientationControls( camera );
+	if (!touchControls) controls = new THREE.DeviceOrientationControls( camera );
 	camera.position.z = 5;
 	camera.position.y = 0;
 	cameraOffset = camera.position.clone();
@@ -239,6 +253,7 @@ function start() {
 	fullscreen();
 	if (document.getElementById('phone'))
 		document.getElementById('phone').remove();
+	if (touchControls) setupTouchControls();
 
 	if (restart) {
 		currentDialog = 0;
@@ -250,11 +265,9 @@ function start() {
 			bgMusic.setBuffer( buffer );
 			bgMusic.setLoop( true );
 			bgMusic.setVolume( 0.25 );
-			if (!bgMusic.isPlaying)
-				bgMusic.play();
+			if (!bgMusic.isPlaying) bgMusic.play();
 		});
 	} else {
-		
 		bgMusic.loop = true;
 	}
 
@@ -270,8 +283,6 @@ function start() {
 
 	blocker.style.display = 'none';
 	
-	
-
 	linesPlayer.loadAnimation(firstDrawing, () => {
 		planes.map((p, i) => [0, 1, 2, 3, 4, 5].indexOf(i) != -1 ? p.visible = true : p.visible = false);
 		linesPlayer.ctx.lineWidth = 2;
@@ -403,7 +414,7 @@ function animate() {
 
 	camera.position.y += cameraSpeed;
 
-	controls.update();
+	if (!touchControls) controls.update();
 	// renderer.render(scene, camera);
 	effect.render( scene, camera );
 }
