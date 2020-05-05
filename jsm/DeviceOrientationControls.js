@@ -73,7 +73,6 @@ var DeviceOrientationControls = function ( object ) {
 		if ( window.DeviceOrientationEvent !== undefined && typeof window.DeviceOrientationEvent.requestPermission === 'function' ) {
 
 			window.DeviceOrientationEvent.requestPermission().then( function ( response ) {
-				console.log('response', response);
 
 				if ( response == 'granted' ) {
 					window.addEventListener( 'orientationchange', onScreenOrientationChangeEvent, false );
@@ -85,13 +84,13 @@ var DeviceOrientationControls = function ( object ) {
 
 			} ).catch( function ( error ) {
 				console.error( 'THREE.DeviceOrientationControls: Unable to use DeviceOrientation API:', error );
+				onControlsDenied();
 			} );
 
 		} else {
-
 			window.addEventListener( 'orientationchange', onScreenOrientationChangeEvent, false );
 			window.addEventListener( 'deviceorientation', onDeviceOrientationChangeEvent, false );
-
+			onControlsGranted(); // android
 		}
 
 		scope.enabled = true;

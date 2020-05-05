@@ -176,9 +176,9 @@ function init() {
 
 	camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1100 );
 	
-	
 	/* if device access granted, launch, else show touch controls button */
 	window.onControlsGranted = function() {
+		console.log('granted');
 		launch();
 	};
 
