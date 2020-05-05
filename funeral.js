@@ -118,28 +118,26 @@ let char;
 const charSpeed = { min: 0.05, max: 0.1 };
 const cameraSpeed = 0.0001;
 
-// better than mobile check, includes ipad
-function onMotion( ev ) {
-	window.removeEventListener('devicemotion', onMotion, false);
-	if (ev.acceleration.x != null || ev.accelerationIncludingGravity.x != null) {
-		if (!touchControls) launch();
-	}
-}
-window.addEventListener('devicemotion', onMotion, false);
-if (document.getElementById('desktop'))
-	document.getElementById('desktop').style.opacity = 1; 
-
+/* check for touch parameter*/
+document.getElementById('launch-touch').onclick = launchTouch;
 let touchControls = false;
-if (location.search) {
-	if (location.search.split('?')[1].split('=')[0] == 'touch') launchTouch();
-}
-
 function launchTouch() {
 	touchControls = true;
 	launch();
 }
 
-document.getElementById('launch-touch').onclick = launchTouch;
+init();
+
+// better than mobile check, includes ipad
+// function onMotion( ev ) {
+// 	window.removeEventListener('devicemotion', onMotion, false);
+// 	if (ev.acceleration.x != null || ev.accelerationIncludingGravity.x != null) {
+// 		if (!touchControls) launch();
+// 	}
+// }
+// window.addEventListener('devicemotion', onMotion, false);
+	
+
 
 function launch() {
 	startButton.style.display = "block";
@@ -147,7 +145,6 @@ function launch() {
 	if (!touchControls) instructions.innerHTML += "<br> Rotate phone to view.";
 	document.getElementById('phone').style.display = 'block';
 	if (document.getElementById('desktop')) document.getElementById('desktop').remove();
-	init();
 }
 
 function init() {
@@ -172,7 +169,14 @@ function init() {
 	});
 
 	camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1100 );
-	if (!touchControls) controls = new DeviceOrientationControls( camera );
+	controls = new DeviceOrientationControls( camera );
+	
+	/* if device access granted, launch, else show touch controls button */
+	if (controls) launch();
+	else document.getElementById('desktop').style.opacity = 1; 
+
+
+
 	camera.position.z = 5;
 	camera.position.y = 0;
 	cameraOffset = camera.position.clone();
@@ -281,7 +285,7 @@ function init() {
 
 function start() {
 	document.body.style.overflow = 'hidden';
-	fullscreen();
+	// fullscreen();
 	if (document.getElementById('phone'))
 		document.getElementById('phone').remove();
 	if (touchControls) setupTouchControls();
@@ -470,8 +474,7 @@ function fullscreen() {
 
 function exitFullscreen() {
 	document.exitFullscreen = document.exitFullscreen || document.mozCancelFullScreen || document.webkitExitFullscreen || document.msExitFullscreen;
-	if (document.exitFullscreen)
-		document.exitFullscreen();
+	if (document.exitFullscreen) document.exitFullscreen();
 }
 
 function setupTouchControls() {
