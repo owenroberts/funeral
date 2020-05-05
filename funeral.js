@@ -3,13 +3,13 @@ import { DeviceOrientationControls } from './jsm/DeviceOrientationControls.js';
 import { OutlineEffect } from './jsm/OutlineEffect.js';
 import { GLTFLoader } from './jsm/GLTFLoader.js';
 
-var blocker = document.getElementById( 'blocker' );
-var startButton = document.getElementById( 'start-button' );
-var instructions = document.getElementById( 'instructions' );
-var bgMusic, bgLoader;
-var bgMusicLoaded = false;
+const blocker = document.getElementById( 'blocker' );
+const startButton = document.getElementById( 'start-button' );
+const initButton = document.getElementById( 'init-button' );
+const instructions = document.getElementById( 'instructions' );
+let bgMusic, bgLoader;
+let bgMusicLoaded = false;
 const themeFile = 'clips/theme_80.mp3', endFile = 'clips/end_80.mp3';
-
 
 let restart = false;
 
@@ -126,7 +126,9 @@ function launchTouch() {
 	launch();
 }
 
-init();
+
+
+document.getElementById('init-button').onclick = init;
 
 // better than mobile check, includes ipad
 // function onMotion( ev ) {
@@ -140,7 +142,8 @@ init();
 
 
 function launch() {
-	startButton.style.display = "block";
+
+	startButton.style.display = "inline-block";
 	instructions.innerHTML = "Headphones recommended." 
 	if (!touchControls) instructions.innerHTML += "<br> Rotate phone to view.";
 	document.getElementById('phone').style.display = 'block';
@@ -148,6 +151,9 @@ function launch() {
 }
 
 function init() {
+
+	initButton.remove();
+
 
 	clock = new THREE.Clock();
 	scene = new THREE.Scene();

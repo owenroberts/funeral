@@ -34,7 +34,7 @@ button {
 	color: white;
 }
 
-#start-button, button {
+button {
 	padding: 0.5em;
 	margin: 0.5em;
 	cursor: pointer;
@@ -42,8 +42,11 @@ button {
 	border-radius: 0.25em;
 }
 
+#start-button, #init-button {
+	font-size: 2em;
+}
+
 #start-button {
-	font-size: 3em;
 	display: none;
 }
 
