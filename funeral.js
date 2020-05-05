@@ -175,13 +175,18 @@ function init() {
 	});
 
 	camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1100 );
-	controls = new DeviceOrientationControls( camera );
+	
 	
 	/* if device access granted, launch, else show touch controls button */
-	if (controls) launch();
-	else document.getElementById('desktop').style.opacity = 1; 
+	window.onControlsGranted = function() {
+		launch();
+	};
 
+	window.onControlsDenied = function() {
+		document.getElementById('desktop').style.opacity = 1; 
+	};
 
+	controls = new DeviceOrientationControls( camera );
 
 	camera.position.z = 5;
 	camera.position.y = 0;

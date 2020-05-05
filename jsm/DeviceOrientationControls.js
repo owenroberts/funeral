@@ -79,13 +79,13 @@ var DeviceOrientationControls = function ( object ) {
 
 					window.addEventListener( 'orientationchange', onScreenOrientationChangeEvent, false );
 					window.addEventListener( 'deviceorientation', onDeviceOrientationChangeEvent, false );
-
+					onControlsGranted();
 				}
 
 			} ).catch( function ( error ) {
 
 				console.error( 'THREE.DeviceOrientationControls: Unable to use DeviceOrientation API:', error );
-				return false;
+				onControlsDenied();
 
 			} );
 
