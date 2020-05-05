@@ -183,6 +183,7 @@ function init() {
 	};
 
 	window.onControlsDenied = function() {
+		console.log('on controls denied');
 		document.getElementById('desktop').style.opacity = 1; 
 	};
 

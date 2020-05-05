@@ -76,17 +76,15 @@ var DeviceOrientationControls = function ( object ) {
 				console.log('response', response);
 
 				if ( response == 'granted' ) {
-
 					window.addEventListener( 'orientationchange', onScreenOrientationChangeEvent, false );
 					window.addEventListener( 'deviceorientation', onDeviceOrientationChangeEvent, false );
 					onControlsGranted();
+				} else {
+					onControlsDenied();
 				}
 
 			} ).catch( function ( error ) {
-
 				console.error( 'THREE.DeviceOrientationControls: Unable to use DeviceOrientation API:', error );
-				onControlsDenied();
-
 			} );
 
 		} else {
