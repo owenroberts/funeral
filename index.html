@@ -16,19 +16,8 @@
 			Loading
 		</div>
 		<div id="desktop">
-			<p>Mobile device required to play.</p>
-			<p>If you're on a desktop, why not check out <a href="http://owen.cool">owen.cool</a>?</p>
-			<p>If you see this message in Safari on an iPhone, you may need to enable "Motion and Orientation Access" in Settings > Safari.</p>
-			<p id="view">View instructions.</p>
-			<p id="gif-instructions"></p>
-			<script>
-				document.getElementById('view').addEventListener('click', () => {
-					const gif = new Image();
-					gif.src = 'safari-fix.gif';
-					document.getElementById('gif-instructions').appendChild(gif);
-					// https://gist.github.com/tskaggs/6394639 // making gifs
-				});
-			</script>
+			<p>For device orientation control, refresh and allow device orientation access.</p>
+			<p><button id="launch-touch">Use touch controls</button></p>
 		</div>
 		<p id="instructions"></p>
 		
@@ -41,12 +30,6 @@
     <div id="container">
     	<canvas id="lines"></canvas>
 	</div>
-
-<!-- 	<script src="js/three.min.js"></script>
-	<script src="js/DeviceOrientationControls.js"></script>
-	<script src="js/OutlineEffect.js"></script>
-	<script src="js/GLTFLoader.js"></script> -->
-	<script src="js/touch-cam.js"></script>
 
 	<script src="lines/lib/cool/cool.js"></script>
 	<script src="lines/play/play.js"></script>

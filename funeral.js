@@ -122,7 +122,7 @@ const cameraSpeed = 0.0001;
 function onMotion( ev ) {
 	window.removeEventListener('devicemotion', onMotion, false);
 	if (ev.acceleration.x != null || ev.accelerationIncludingGravity.x != null) {
-		// if (!touchControls) launch();
+		if (!touchControls) launch();
 	}
 }
 window.addEventListener('devicemotion', onMotion, false);
@@ -131,12 +131,15 @@ if (document.getElementById('desktop'))
 
 let touchControls = false;
 if (location.search) {
-	if (location.search.split('?')[1].split('=')[0] == 'touch') {
-		touchControls = true;
-		launch();
-	}
+	if (location.search.split('?')[1].split('=')[0] == 'touch') launchTouch();
 }
 
+function launchTouch() {
+	touchControls = true;
+	launch();
+}
+
+document.getElementById('launch-touch').onclick = launchTouch;
 
 function launch() {
 	startButton.style.display = "block";
@@ -148,6 +151,7 @@ function launch() {
 }
 
 function init() {
+
 	clock = new THREE.Clock();
 	scene = new THREE.Scene();
 
@@ -276,6 +280,7 @@ function init() {
 }
 
 function start() {
+	document.body.style.overflow = 'hidden';
 	fullscreen();
 	if (document.getElementById('phone'))
 		document.getElementById('phone').remove();
@@ -467,6 +472,29 @@ function exitFullscreen() {
 	document.exitFullscreen = document.exitFullscreen || document.mozCancelFullScreen || document.webkitExitFullscreen || document.msExitFullscreen;
 	if (document.exitFullscreen)
 		document.exitFullscreen();
+}
+
+function setupTouchControls() {
+	renderer.domElement.addEventListener("touchstart", handleStart);
+	renderer.domElement.addEventListener("touchmove", handleMove);
+}
+
+const touch = {};
+function handleStart(ev) {
+	ev.preventDefault();
+	touch.x = ev.touches[0].clientX;
+	touch.y = ev.touches[0].clientY;
+}
+function handleMove(ev) {
+	ev.preventDefault();
+	const delta = {
+		x: ev.touches[0].clientX - touch.x,
+		y: ev.touches[0].clientY - touch.y
+	};
+	camera.rotation.y += Cool.map(delta.x, -width/2, width/2, -Math.PI/4, Math.PI/4);
+	camera.rotation.x += Cool.map(delta.y, -height/2, height/2, -Math.PI/4, Math.PI/4);
+	touch.x = ev.touches[0].clientX;
+	touch.y = ev.touches[0].clientY;
 }
 
 document.addEventListener( 'visibilitychange', ev => {

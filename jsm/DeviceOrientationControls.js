@@ -73,6 +73,7 @@ var DeviceOrientationControls = function ( object ) {
 		if ( window.DeviceOrientationEvent !== undefined && typeof window.DeviceOrientationEvent.requestPermission === 'function' ) {
 
 			window.DeviceOrientationEvent.requestPermission().then( function ( response ) {
+				console.log('response', response);
 
 				if ( response == 'granted' ) {
 
