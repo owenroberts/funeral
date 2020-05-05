@@ -1,3 +1,8 @@
+import * as THREE from './jsm/three.module.js';
+import { DeviceOrientationControls } from './jsm/DeviceOrientationControls.js';
+import { OutlineEffect } from './jsm/OutlineEffect.js';
+import { GLTFLoader } from './jsm/GLTFLoader.js';
+
 var blocker = document.getElementById( 'blocker' );
 var startButton = document.getElementById( 'start-button' );
 var instructions = document.getElementById( 'instructions' );
@@ -106,6 +111,7 @@ let camera, scene, renderer, controls, cameraOffset, origin;
 let linesTexture; /* texture gets updated */
 let clock, mixer;
 let listener, voiceSound, voiceSource, audioLoader;
+let effect;
 
 let charAxes;
 let char;
@@ -116,7 +122,7 @@ const cameraSpeed = 0.0001;
 function onMotion( ev ) {
 	window.removeEventListener('devicemotion', onMotion, false);
 	if (ev.acceleration.x != null || ev.accelerationIncludingGravity.x != null) {
-		if (!touchControls) launch();
+		// if (!touchControls) launch();
 	}
 }
 window.addEventListener('devicemotion', onMotion, false);
@@ -155,15 +161,14 @@ function init() {
 	renderer.setPixelRatio( window.devicePixelRatio );
 	renderer.setSize(width, height);
 	document.body.appendChild(renderer.domElement);
-	renderer.gammaInput = true;
-	renderer.gammaOutput = true;
-	effect = new THREE.OutlineEffect( renderer, {
+	
+	effect = new OutlineEffect( renderer, {
 		defaultThickNess: 1,
 		defaultColor: new THREE.Color( 0xffffff )
 	});
 
 	camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1100 );
-	if (!touchControls) controls = new THREE.DeviceOrientationControls( camera );
+	if (!touchControls) controls = new DeviceOrientationControls( camera );
 	camera.position.z = 5;
 	camera.position.y = 0;
 	cameraOffset = camera.position.clone();
@@ -206,7 +211,7 @@ function init() {
 
 	/* blender */
 	mixer = new THREE.AnimationMixer( scene );
-	const loader = new THREE.GLTFLoader();
+	const loader = new GLTFLoader();
 	loader.load("models/char_arm.gltf", gltf => {
 
 		// console.log( gltf );
@@ -245,8 +250,6 @@ function init() {
 		scene.add( char );
 		origin = char.position.clone();
 
-		console.log(bgMusicLoaded);
-
 		let bgInterval;
 		if (bgMusicLoaded) ready();
 		else {
@@ -263,7 +266,6 @@ function init() {
 			startButton.addEventListener( 'touchend', start, false );
 			startButton.addEventListener( 'click', start, false );
 		}
-		
 	});
 
 	bgLoader.load(themeFile, buffer => {

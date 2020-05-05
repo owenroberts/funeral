@@ -1,7 +1,7 @@
 body {
 	margin: 0px;
 	background-color: #000000;
-	overflow: hidden;
+	/*overflow: hidden;*/
 }
 #blocker, #start-button {
 	-webkit-user-select: none;  /* Chrome all / Safari all */
